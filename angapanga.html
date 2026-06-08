@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { font-family: 'Quicksand', sans-serif; }
+
+    /* ── FLOATING HEARTS ── */
+    .floating-hearts {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .fh {
+      position: absolute;
+      font-size: var(--fs);
+      animation: floatUp var(--dur) linear var(--delay) infinite;
+      opacity: 0;
+      left: var(--lft);
+      top: 110%;
+      color: var(--clr);
+    }
+
+    @keyframes floatUp {
+      0%   { opacity: 0;    transform: translateY(0) rotate(var(--rot)); }
+      10%  { opacity: 0.85; }
+      90%  { opacity: 0.7;  }
+      100% { opacity: 0;    transform: translateY(-130vh) rotate(calc(var(--rot) + 30deg)); }
+    }
+
+    /* ══════════════════════════════════
+       MAIN PAGE
+    ══════════════════════════════════ */
+    #page-main {
+      min-height: 100vh;
+      width: 100%;
+      background: linear-gradient(135deg, #ff6eb4 0%, #ff9de2 30%, #ffb3ec 55%, #c97bff 80%, #a259e6 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 32px;
+      padding: 2.5rem 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      box-shadow: 0 8px 48px rgba(180, 0, 100, 0.18);
+      position: relative;
+      z-index: 2;
+      max-width: 420px;
+      width: 90%;
+    }
+
+    .big-heart-wrap {
+      position: relative;
+      width: 200px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.07); }
+    }
+
+    .big-heart-svg { width: 200px; height: 180px; }
+
+    .heart-text {
+      position: absolute;
+      top: 52%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.05rem;
+      text-align: center;
+      line-height: 1.4;
+      text-shadow: 0 1px 6px rgba(150, 0, 80, 0.5);
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      color: white;
+      font-size: 0.85rem;
+      opacity: 0.75;
+      margin-top: -0.5rem;
+      font-style: italic;
+    }
+
+    /* ── HEART BUTTONS ── */
+    .heart-btn {
+      position: relative;
+      width: 90px;
+      height: 82px;
+      cursor: pointer;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.18s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .heart-btn:hover,
+    .heart-btn:focus,
+    .heart-btn:active {
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .heart-btn:hover  { transform: scale(1.12); }
+    .heart-btn:active { transform: scale(0.96); }
+
+    .heart-btn svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    .btn-label {
+      position: relative;
+      z-index: 1;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.15rem;
+      color: white;
+      text-shadow: 0 1px 4px rgba(120, 0, 60, 0.5);
+      pointer-events: none;
+    }
+
+    .btn-area {
+      position: relative;
+      width: 210px;
+      height: 90px;
+    }
+
+    #btn-yes-wrap {
+      position: absolute;
+      left: 0; top: 0;
+    }
+
+    #btn-no-wrap {
+      position: absolute;
+      left: 110px; top: 0;
+      transition: left 0.45s cubic-bezier(.68, -0.55, .27, 1.55),
+                  top  0.45s cubic-bezier(.68, -0.55, .27, 1.55);
+    }
+
+    /* ══════════════════════════════════
+       APOLOGY PAGE
+    ══════════════════════════════════ */
+    #page-apology {
+      display: none;
+      min-height: 100vh;
+      width: 100%;
+      background: linear-gradient(135deg, #1a0533 0%, #3b0764 40%, #6b21a8 70%, #a855f7 100%);
+      position: relative;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 3rem 1.5rem;
+    }
+
+    .apology-card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 28px;
+      padding: 2.5rem 2.8rem;
+      max-width: 520px;
+      width: 90%;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 12px 60px rgba(100, 0, 200, 0.3);
+      animation: fadeInUp 0.9s ease both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .apology-card h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.4rem;
+      color: #ffd6f0;
+      margin: 0 0 1.4rem;
+      text-align: center;
+      text-shadow: 0 2px 12px rgba(255, 100, 200, 0.4);
+    }
+
+    .apology-card p {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 1.02rem;
+      line-height: 1.85;
+      margin: 0 0 0.9rem;
+    }
+
+    .apology-card .sign {
+      color: #ffc0de;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.1rem;
+      text-align: right;
+      margin-top: 1rem;
+    }
+
+    .sparkles {
+      position: absolute;
+      top: -18px; right: -14px;
+      font-size: 2rem;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ MAIN PAGE ══ -->
+  <div id="page-main">
+    <div class="floating-hearts" id="fh-main"></div>
+
+    <div class="card">
+      <div class="big-heart-wrap">
+        <svg class="big-heart-svg" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 160 C100 160 20 110 20 60 C20 30 45 10 70 10 C84 10 96 18 100 28
+                   C104 18 116 10 130 10 C155 10 180 30 180 60 C180 110 100 160 100 160Z"
+                fill="#ff2d6e" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+          <path d="M100 145 C100 145 35 100 35 60 C35 38 52 24 70 24 C82 24 92 30 100 40
+                   C108 30 118 24 130 24 C148 24 165 38 165 60 C165 100 100 145 100 145Z"
+                fill="#ff5c96" opacity="0.55"/>
+        </svg>
+        <div class="heart-text">Do you<br>love me?</div>
+      </div>
+
+      <div class="subtitle">(choose wisely 💕)</div>
+
+      <div class="btn-area">
+        <div id="btn-yes-wrap">
+          <button class="heart-btn" onclick="showApology()">
+            <svg viewBox="0 0 90 82" xmlns="http://www.w3.org/2000/svg">
+              <path d="M45 72 C45 72 8 50 8 27 C8 12 18 4 28 4 C36 4 42 8 45 14
+                       C48 8 54 4 62 4 C72 4 82 12 82 27 C82 50 45 72 45 72Z"
+                    fill="#e9196a" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+            </svg>
+            <span class="btn-label">Yes</span>
+          </button>
+        </div>
+
+        <div id="btn-no-wrap">
+          <button class="heart-btn" onmouseenter="dodgeNo()">
+            <svg viewBox="0 0 90 82" xmlns="http://www.w3.org/2000/svg">
+              <path d="M45 72 C45 72 8 50 8 27 C8 12 18 4 28 4 C36 4 42 8 45 14
+                       C48 8 54 4 62 4 C72 4 82 12 82 27 C82 50 45 72 45 72Z"
+                    fill="#9b34cf" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+            </svg>
+            <span class="btn-label">No</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ APOLOGY PAGE ══ -->
+  <div id="page-apology">
+    <div class="floating-hearts" id="fh-apology"></div>
+
+    <div class="apology-card">
+      <span class="sparkles">✨</span>
+      <h2>A little letter for you 💌</h2>
+      <p>Dear Love,</p>
+      <p>I'm sorry if I made you feel ignored. I promise it wasn't intentional — I'm just occasionally talented at acting like an idiot.</p>
+      <p>You mean a lot to me, and I'm honestly very fond of you. If I made you feel otherwise, then I'm really sorry.</p>
+      <p>Please forgive this foolish boy.</p>
+      <div class="sign">Love, Angshuman ❤️</div>
+    </div>
+  </div>
+
+  <script>
+    const heartColors = ['#ff6eb4','#ff91cc','#ffb3e6','#e040fb','#ce93d8','#ff4081','#f48fb1','#ff80ab'];
+    const sizes = [14, 18, 22, 28, 32, 20, 16, 26];
+
+    function makeFloatingHearts(containerId, count) {
+      const c = document.getElementById(containerId);
+      for (let i = 0; i < count; i++) {
+        const d = document.createElement('div');
+        d.className = 'fh';
+        d.textContent = '♥';
+        d.style.setProperty('--fs',    sizes[i % sizes.length] + 'px');
+        d.style.setProperty('--dur',   (7 + Math.random() * 9) + 's');
+        d.style.setProperty('--delay', (Math.random() * 10) + 's');
+        d.style.setProperty('--lft',   (Math.random() * 95) + '%');
+        d.style.setProperty('--clr',   heartColors[Math.floor(Math.random() * heartColors.length)]);
+        d.style.setProperty('--rot',   (Math.random() * 40 - 20) + 'deg');
+        c.appendChild(d);
+      }
+    }
+
+    makeFloatingHearts('fh-main', 30);
+    makeFloatingHearts('fh-apology', 30);
+
+    function showApology() {
+      document.getElementById('page-main').style.display = 'none';
+      const ap = document.getElementById('page-apology');
+      ap.style.display = 'flex';
+    }
+
+    const dodgeSpots = [
+      ['-120px', '-75px'],
+      ['170px',  '-65px'],
+      ['-110px', '95px' ],
+      ['160px',  '95px' ],
+      ['25px',   '-95px'],
+      ['200px',  '20px' ],
+      ['-150px', '20px' ],
+    ];
+    let noIdx = 0;
+
+    function dodgeNo() {
+      const wrap = document.getElementById('btn-no-wrap');
+      const [dl, dt] = dodgeSpots[noIdx % dodgeSpots.length];
+      noIdx++;
+      wrap.style.left = (110 + parseInt(dl)) + 'px';
+      wrap.style.top  = parseInt(dt) + 'px';
+    }
+  </script>
+</body>
+</html>
